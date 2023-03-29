@@ -9,7 +9,7 @@ public class GameStateTest
     {
         Piece ipiece = Piece.IPiece();
         Mock<PieceGenerator> moqGen = new Mock<PieceGenerator>();
-        moqGen.Setup(p => p.Next()).Returns(ipiece);
+        moqGen.Setup(p => p.Next()).Returns(() => ipiece);
         // PieceGenerator moqGen 
         GameState state = new GameState(moqGen.Object);
 
@@ -199,7 +199,7 @@ public class GameStateTest
         Assert.Contains(new Position(19, 9), blocks.Keys);
 
         Piece jpiece = Piece.JPiece();
-        moqGen.Setup(p => p.Next()).Returns(jpiece);
+        moqGen.Setup(p => p.Next()).Returns(() => jpiece);
         // piece is at the bottom of the board, it should be set
         state.Tick();
         Assert.Equal(jpiece, state.Falling);
@@ -242,7 +242,7 @@ public class GameStateTest
         Assert.Contains(new Position(18, 9), blocks.Keys);
 
         ipiece = Piece.IPiece();
-        moqGen.Setup(p => p.Next()).Returns(ipiece);
+        moqGen.Setup(p => p.Next()).Returns(() => ipiece);
 
         state.Tick();
         Assert.Equal(ipiece, state.Falling);
@@ -281,7 +281,7 @@ public class GameStateTest
 
         
         ipiece = Piece.IPiece();
-        moqGen.Setup(p => p.Next()).Returns(ipiece);
+        moqGen.Setup(p => p.Next()).Returns(() => ipiece);
         Assert.True(state.Tick());
         Assert.Equal(ipiece, state.Falling);
         blocks = state.Blocks.ToDictionary();
@@ -305,7 +305,7 @@ public class GameStateTest
         Assert.Contains(new Position(19, 0), blocks.Keys);
 
         ipiece = Piece.IPiece();
-        moqGen.Setup(p => p.Next()).Returns(ipiece);
+        moqGen.Setup(p => p.Next()).Returns(() => ipiece);
         Assert.True(state.Tick());
         Assert.Equal(ipiece, state.Falling);
         blocks = state.Blocks.ToDictionary();
@@ -325,7 +325,7 @@ public class GameStateTest
         Assert.Contains(new Position(19, 1), blocks.Keys);
 
         ipiece = Piece.IPiece();
-        moqGen.Setup(p => p.Next()).Returns(ipiece);
+        moqGen.Setup(p => p.Next()).Returns(() => ipiece);
         Assert.True(state.Tick());
         Assert.Equal(ipiece, state.Falling);
         blocks = state.Blocks.ToDictionary();
@@ -350,7 +350,7 @@ public class GameStateTest
         Assert.Contains(new Position(19, 5), blocks.Keys);
 
         ipiece = Piece.IPiece();
-        moqGen.Setup(p => p.Next()).Returns(ipiece);
+        moqGen.Setup(p => p.Next()).Returns(() => ipiece);
         Assert.True(state.Tick(out IEnumerable<int> clearedRows));
         Assert.Single(clearedRows);
         Assert.Contains(19, clearedRows);
@@ -374,5 +374,19 @@ public class GameStateTest
         Assert.Contains(new Position(19, 7), blocks.Keys);
         Assert.Contains(new Position(19, 8), blocks.Keys);
         Assert.Contains(new Position(19, 9), blocks.Keys);
+    }
+
+    [Fact(Timeout=5000)]
+    public void TestGameOver()
+    {
+        int trials = 100;
+        for (int trial = 0; trial < trials; trial++)
+        {
+            GameState state = new ();
+            while (true)
+            {
+                if(!state.Tick()) { break; }
+            }
+        }
     }
 }

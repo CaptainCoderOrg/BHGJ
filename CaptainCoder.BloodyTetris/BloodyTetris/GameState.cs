@@ -83,13 +83,13 @@ public class GameState
     {
         while (_queue.Count < QueueSize)
         {
-            _queue.Add(_pieceGenerator.Next());
+            _queue.Add(_pieceGenerator.Next().Invoke());
         }
     }
 
     private bool NextPiece()
     {
-        _falling = _pieceGenerator.Next();
+        _falling = _pieceGenerator.Next().Invoke();
         _cursor = (0, Board.Columns / 2);
         FillQueue();
         return AttemptPlacePieceAtTop();

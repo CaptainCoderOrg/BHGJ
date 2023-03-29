@@ -3,7 +3,7 @@ namespace CaptainCoder.BloodyTetris;
 
 public class Piece
 {
-    public static Piece IPiece() => new PieceBuilder(BlockColor.Cyan)
+    public static Func<Piece> IPiece => new PieceBuilder(BlockColor.Cyan)
         .AddState(new string[]
             {
                 " *  ",
@@ -31,17 +31,16 @@ public class Piece
                 "    ",
                 "****",
                 "    ",
-            })
-        .Build();
+            }).Build;
 
-    public static Piece OPiece() => new PieceBuilder(BlockColor.Yellow)
+    public static Func<Piece> OPiece => new PieceBuilder(BlockColor.Yellow)
         .AddState(new string[]
         {
             "**",
             "**"
         })
-        .Build();
-    public static Piece JPiece() => new PieceBuilder(BlockColor.Blue)
+        .Build;
+    public static Func<Piece> JPiece => new PieceBuilder(BlockColor.Blue)
         .AddState(new string[]
         {
             "*  ",
@@ -66,8 +65,8 @@ public class Piece
             " * ",
             "** "
         })
-        .Build();
-    public static Piece LPiece() => new PieceBuilder(BlockColor.Orange)
+        .Build;
+    public static Func<Piece> LPiece => new PieceBuilder(BlockColor.Orange)
         .AddState(new string[]
         {
             "  *",
@@ -92,8 +91,8 @@ public class Piece
             " * ",
             " * "
         })
-        .Build();
-    public static Piece TPiece() => new PieceBuilder(BlockColor.Purple)
+        .Build;
+    public static Func<Piece> TPiece => new PieceBuilder(BlockColor.Purple)
         .AddState(new string[]
         {
             " * ",
@@ -118,8 +117,8 @@ public class Piece
             "** ",
             " * "
         })
-        .Build();
-    public static Piece SPiece() => new PieceBuilder(BlockColor.Green)
+        .Build;
+    public static Func<Piece> SPiece => new PieceBuilder(BlockColor.Green)
         .AddState(new string[]
         {
             " **",
@@ -144,8 +143,8 @@ public class Piece
             "** ",
             " * "
         })
-        .Build();
-    public static Piece ZPiece() => new PieceBuilder(BlockColor.Red)
+        .Build;
+    public static Func<Piece> ZPiece => new PieceBuilder(BlockColor.Red)
         .AddState(new string[]
         {
             "** ",
@@ -170,8 +169,8 @@ public class Piece
             "** ",
             "*  "
         })
-        .Build();
-    public static Piece[] All() => new[] { OPiece(), JPiece(), LPiece(), IPiece(), TPiece(), SPiece(), ZPiece() };
+        .Build;
+    public static Func<Piece>[] All() => new[] { OPiece, JPiece, LPiece, IPiece, TPiece, SPiece, ZPiece };
 
     private readonly List<Dictionary<Position, Block>> _states;
     private int _currentState;
