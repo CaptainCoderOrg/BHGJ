@@ -40,13 +40,15 @@ public class Board
     /// </summary>
     public IEnumerable<int> ClearRows()
     {
+        List<int> found = new ();
         int offset = 0;
         foreach(int i in FindClearedLines())
         {
             ClearRow(i + offset);
-            yield return i;
+            found.Add(i);
             offset++;
         }
+        return found;
     }
 
     private IEnumerable<int> CheckClearLines(int row)
