@@ -34,20 +34,13 @@ public class InputControls : MonoBehaviour
 
     private void HandleRotateClockwise(CallbackContext ctx)
     {
-        Debug.Log("Rotate?");
         if (GameState.TryRotateClockwise())
         {
             _manager.Redraw();
         }
     }
 
-    private void HandleDrop(CallbackContext ctx)
-    {
-        while (GameState.TryMove((1, 0))) ;
-        GameState.Tick();
-        _manager.ResetTicker();
-        _manager.Redraw();
-    }
+    private void HandleDrop(CallbackContext ctx) => StartCoroutine(_manager.Drop());
 
 
     private void HandleMove(CallbackContext ctx)

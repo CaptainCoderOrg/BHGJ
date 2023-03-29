@@ -26,6 +26,8 @@ public class Board
     {
         foreach ((Position p, Block b) in piece.Blocks)
         {
+            Block clone = new (b.Color);
+            if(piece.IsBloody) { clone.Bleed(); }
             _board[topLeft + p] = b;
         }
         return FindClearedLines();
@@ -33,33 +35,35 @@ public class Board
     /// <summary>
     /// Returns an enumerable containing each row that is currently full.
     /// </summary>
-    public IEnumerable<int> FindClearedLines() => CheckClearLines(Rows - 1);
+    public IEnumerable<int> FindClearedLines() => CheckClearLines(Rows - 1, new List<int>());
     /// <summary>
      /// Clears any row that is full and returns an enumerable containing the rows
      /// that were cleared.
     /// </summary>
-    public IEnumerable<int> ClearRows()
+    public (IEnumerable<int>, IEnumerable<Block>) ClearRows()
     {
         List<int> found = new ();
+        List<Block> blocks = new ();
         int offset = 0;
-        foreach(int i in FindClearedLines())
+        foreach(int row in FindClearedLines())
         {
-            ClearRow(i + offset);
-            found.Add(i);
+            for (int col = 0; col < Columns; col++)
+            {
+                blocks.Add(_board[(row + offset, col)]);
+            }
+            ClearRow(row + offset);
+            found.Add(row);
             offset++;
         }
-        return found;
+        return (found, blocks);
     }
 
-    private IEnumerable<int> CheckClearLines(int row)
+    private IEnumerable<int> CheckClearLines(int row, List<int> acc)
     {
-        if (row < 0) { yield break; }
+        if (row < 0) { return acc; }
         bool isFull = _board.ToTuples().Where(((Position p, Block b) pair) => pair.p.Row == row).Count() == Columns;
-        if (isFull) { yield return row; }
-        foreach (int n in CheckClearLines(row - 1))
-        {
-            yield return n;
-        }
+        if (isFull) { acc.Add(row); }
+        return CheckClearLines(row - 1, acc);
     }
 
     private void ClearRow(int row)

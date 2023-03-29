@@ -186,6 +186,17 @@ public class Piece
     public void RotateCounterClockwise() => CurrentState--;
     public int Rows => Blocks.Select(pair => pair.Item1.Row).ToHashSet().Count();
     public int Columns => Blocks.Select(pair => pair.Item1.Col).ToHashSet().Count();
+    public bool IsBloody { get; private set; }
+
+    public void Bleed()
+    {
+        IsBloody = true;
+        foreach(var state in _states)
+        {
+            state.ToTuples().ToList().ForEach(pair => pair.Item2.Bleed());
+        }
+        
+    }
 
     internal class PieceBuilder
     {
@@ -210,7 +221,21 @@ public class Piece
             return this;
         }
 
-        public Piece Build() => new Piece(_states);
+        public Piece Build() 
+        {
+            List<Dictionary<Position, Block>> states = new();
+            foreach (Dictionary<Position, Block> toClone in _states)
+            {
+                Dictionary<Position, Block> clone = new();
+                foreach((Position p, Block b) in toClone)
+                {
+                    clone[p] = new Block(b.Color);
+                }
+                states.Add(clone);
+            }
+            return new Piece(states);
+        }
+
     }
 }
 

@@ -62,22 +62,23 @@ public class GameState
     /// move down, it is set. Returns true if the game should continue and false if the game
     /// has been lost. The out argument clearedRows contains the index of any row that was removed.
     /// </summary>
-    public bool Tick(out IEnumerable<int> clearedRows)
+    public bool Tick(out IEnumerable<int> clearedRows, out IEnumerable<Block> clearedBlocks)
     {
         if (Board.CanPlacePiece(_cursor + (1, 0), _falling))
         {
             _cursor += (1, 0);
             clearedRows = Enumerable.Empty<int>();
+            clearedBlocks = Enumerable.Empty<Block>();
             return true;
         }
         Board.SetPiece(_cursor, _falling);
-        clearedRows = Board.ClearRows();
+        (clearedRows, clearedBlocks) = Board.ClearRows();
         return NextPiece();
     }
 
-    public bool Tick() => Tick(out var _);
+    public bool Tick() => Tick(out var _, out var _);
 
-    public IEnumerable<int> ClearLines() => Board.ClearRows();
+    public (IEnumerable<int>, IEnumerable<Block>) ClearLines() => Board.ClearRows();
 
     private void FillQueue()
     {

@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); margin-left: 20px; width: 300px;">
+        <ui:Label tabindex="-1" text="Bloody Tetris&#10;&#10;Move: WASD / Arrow Keys&#10;Drop: Spacebar&#10;&#10;Your blood is draining, crush your enemies with Tetrominoes to bloody the pieces. Clearing lines with bloody blocks restores blood. Good luck!" display-tooltip-when-elided="true" style="color: rgb(255, 179, 179); white-space: normal;" />
+    </ui:VisualElement>
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 300px; flex-direction: column-reverse; margin-bottom: 20px;">
+        <ui:Button text="Start New Game" display-tooltip-when-elided="true" name="StartGameButton" focusable="false" />
+        <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+            <ui:Slider picking-mode="Ignore" label="Music Volume" value="0.5" high-value="1" name="MusicVolume" focusable="false" />
+            <ui:Slider picking-mode="Ignore" label="SFX" value="0.5" high-value="1" name="SFXVolume" focusable="false" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

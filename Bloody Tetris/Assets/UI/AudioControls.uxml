@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); margin-left: 20px;">
+        <ui:Label tabindex="-1" text="Bloody Tetris&#10;&#10;Controls: WASD / Arrow Keys" display-tooltip-when-elided="true" style="color: rgb(255, 179, 179);" />
+        <ui:Label tabindex="-1" text="Blood Remaining:" display-tooltip-when-elided="true" name="BloodLabel" style="color: rgb(255, 179, 179);" />
+        <ui:Label tabindex="-1" text="Lines Cleared:" display-tooltip-when-elided="true" name="LinesLabel" style="color: rgb(255, 179, 179);" />
+        <ui:Label tabindex="-1" text="Level:" display-tooltip-when-elided="true" name="LevelLabel" style="color: rgb(255, 179, 179);" />
+    </ui:VisualElement>
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 300px; flex-direction: column-reverse; margin-bottom: 20px;">
+        <ui:Button text="Start New Game" display-tooltip-when-elided="true" name="StartGameButton" focusable="false" />
+    </ui:VisualElement>
+</ui:UXML>

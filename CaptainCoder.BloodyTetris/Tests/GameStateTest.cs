@@ -351,7 +351,7 @@ public class GameStateTest
 
         ipiece = Piece.IPiece();
         moqGen.Setup(p => p.Next()).Returns(() => ipiece);
-        Assert.True(state.Tick(out IEnumerable<int> clearedRows));
+        Assert.True(state.Tick(out IEnumerable<int> clearedRows, out var _));
         Assert.Single(clearedRows);
         Assert.Contains(19, clearedRows);
         Assert.Equal(ipiece, state.Falling);
@@ -388,5 +388,58 @@ public class GameStateTest
                 if(!state.Tick()) { break; }
             }
         }
+    }
+
+    [Fact(Timeout=5000)]
+    public void ClearMultipleLines()
+    {
+        Piece ipiece = Piece.IPiece();
+        Mock<PieceGenerator> moqGen = new Mock<PieceGenerator>();
+        moqGen.Setup(p => p.Next()).Returns(() => ipiece);
+        // PieceGenerator moqGen 
+        GameState state = new GameState(moqGen.Object);
+        Assert.True(state.TryMove((16, -6)));
+        
+        moqGen.Setup(p => p.Next()).Returns(() => ipiece);
+        Assert.True(state.Tick());
+        Assert.True(state.TryMove((16, -5)));
+
+        moqGen.Setup(p => p.Next()).Returns(() => ipiece);
+        Assert.True(state.Tick());
+        Assert.True(state.TryMove((16, -4)));
+
+        moqGen.Setup(p => p.Next()).Returns(() => ipiece);
+        Assert.True(state.Tick());
+        Assert.True(state.TryMove((16, -3)));
+
+        moqGen.Setup(p => p.Next()).Returns(() => ipiece);
+        Assert.True(state.Tick());
+        Assert.True(state.TryMove((16, -2)));
+
+        moqGen.Setup(p => p.Next()).Returns(() => ipiece);
+        Assert.True(state.Tick());
+        Assert.True(state.TryMove((16, -1)));
+
+        moqGen.Setup(p => p.Next()).Returns(() => ipiece);
+        Assert.True(state.Tick());
+        Assert.True(state.TryMove((16, 0)));
+
+        moqGen.Setup(p => p.Next()).Returns(() => ipiece);
+        Assert.True(state.Tick());
+        Assert.True(state.TryMove((16, 1)));
+        moqGen.Setup(p => p.Next()).Returns(() => ipiece);
+        Assert.True(state.Tick());
+        Assert.True(state.TryMove((16, 2)));
+
+        moqGen.Setup(p => p.Next()).Returns(() => ipiece);
+        Assert.True(state.Tick());
+        Assert.True(state.TryMove((16, 3)));
+
+        Assert.True(state.Tick(out IEnumerable<int> clearedLines, out var _));
+
+        Assert.Equal(4, clearedLines.Count());
+        Assert.Equal(4, clearedLines.Count());
+
+        
     }
 }

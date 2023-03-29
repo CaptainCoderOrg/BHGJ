@@ -46,7 +46,7 @@ public class BoardRenderer : MonoBehaviour
             }
             else
             {
-                cell.Color = block.Color.ToUnityColor();
+                cell.Block = block;
             }
         }
     }
