@@ -37,6 +37,7 @@ public class BoardRenderer : MonoBehaviour
 
     public void RenderBoard(GameState gameState)
     {
+        try {
         Dictionary<Position, Block> blocks = gameState.Blocks.ToDictionary();
         foreach ((Position pos, Cell cell) in _cells)
         {
@@ -48,6 +49,11 @@ public class BoardRenderer : MonoBehaviour
             {
                 cell.Block = block;
             }
+        }
+        }
+        catch
+        {
+            
         }
     }
 

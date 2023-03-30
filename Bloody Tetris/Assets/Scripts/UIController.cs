@@ -27,4 +27,9 @@ public class UIController : MonoBehaviour
         startGame.clicked += _manager.StartGame;
     }
 
+    void OnGUI()
+    {
+        
+    }
+
 }

@@ -319,7 +319,7 @@ MonoBehaviour:
   _enemyTemplate: {fileID: 2662726381018948123, guid: 3a371ff6a16ab1c47b1b54c56e35caf5, type: 3}
   _board: {fileID: 138980758}
   _tickDelay: 1
-  _blood: 5
+  _startingBlood: 45
   _lines: 0
   _level: 1
   OnLinesChange:
@@ -374,7 +374,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ab63d9e705a7db34f8116b1f8b1a9631, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 1
   Mute: 0

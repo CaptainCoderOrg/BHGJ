@@ -35,8 +35,10 @@ public class GameManager : MonoBehaviour
     private WaitForSeconds _delay;
     private Coroutine _ticker;
     private Coroutine _drainBlood;
+    private Coroutine _drop;
 
     [field: SerializeField]
+    private int _startingBlood = 45;
     private int _blood = 99;
     public int Blood
     {
@@ -113,12 +115,12 @@ public class GameManager : MonoBehaviour
             Redraw();
             yield return new WaitForSeconds(0.01f);
         }
-        Tick();
-        _ticker = StartCoroutine(Ticker());
-        if (Blood <= 0)
+        
+        if (Tick() && Blood <= 0)
         {
             StartCoroutine(Drop());
         }
+        _ticker = StartCoroutine(Ticker());
     }
     private void StopTicker()
     {
@@ -212,7 +214,7 @@ public class GameManager : MonoBehaviour
         }
         Enemies.Clear();
         Level = 1;
-        Blood = 99;
+        Blood = _startingBlood;
         Lines = 0;
         GameState = new GameState();
         TickDelay = 1;
